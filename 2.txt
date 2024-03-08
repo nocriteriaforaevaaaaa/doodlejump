@@ -3,9 +3,7 @@
 using namespace sf;
 
 struct point
-{
-    int x, y;
-};
+{ int x,y;};
 
 int main()
 {
@@ -32,9 +30,9 @@ int main()
     int x = 100, y = 100, h = 200;
     float dx = 0, dy = 0;
 
-    CircleShape startButton(50); // Define start button with larger radius
+    RectangleShape startButton(Vector2f(100, 50)); // Define start button
     startButton.setFillColor(Color::Green);
-    startButton.setPosition(175, 225); // Adjust position
+    startButton.setPosition(150, 250);
 
     bool gameStarted = false; // Flag to track whether the game has started
 
@@ -45,46 +43,35 @@ int main()
         {
             if (e.type == Event::Closed)
                 app.close();
-            if (e.type == Event::MouseButtonPressed && !gameStarted)
-            {
-                if (e.mouseButton.button == Mouse::Left)
-                {
+            if (e.type == Event::MouseButtonPressed && !gameStarted) {
+                if (e.mouseButton.button == Mouse::Left) {
                     Vector2i mousePos = Mouse::getPosition(app);
-                    if (startButton.getGlobalBounds().contains(mousePos.x, mousePos.y))
-                    {
+                    if (startButton.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
                         gameStarted = true;
                     }
                 }
             }
         }
 
-        if (gameStarted)
-        { // Only update and draw game elements if the game has started
-            if (Keyboard::isKeyPressed(Keyboard::Right))
-                x += 3;
-            if (Keyboard::isKeyPressed(Keyboard::Left))
-                x -= 3;
+        if (gameStarted) { // Only update and draw game elements if the game has started
+            if (Keyboard::isKeyPressed(Keyboard::Right)) x += 3;
+            if (Keyboard::isKeyPressed(Keyboard::Left)) x -= 3;
 
             dy += 0.2;
             y += dy;
-            if (y > 500)
-                dy = -10;
+            if (y > 500) dy = -10;
 
             if (y < h)
                 for (int i = 0; i < 10; i++)
                 {
                     y = h;
                     plat[i].y = plat[i].y - dy;
-                    if (plat[i].y > 533)
-                    {
-                        plat[i].y = 0;
-                        plat[i].x = rand() % 400;
-                    }
+                    if (plat[i].y > 533) { plat[i].y = 0; plat[i].x = rand() % 400; }
                 }
 
             for (int i = 0; i < 10; i++)
-                if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68) && (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0))
-                    dy = -10;
+                if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
+                    && (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0)) dy = -10;
 
             sPers.setPosition(x, y);
 
@@ -95,9 +82,7 @@ int main()
                 sPlat.setPosition(plat[i].x, plat[i].y);
                 app.draw(sPlat);
             }
-        }
-        else
-        { // Draw start button if the game has not started yet
+        } else { // Draw start button if the game has not started yet
             app.draw(startButton);
         }
 
