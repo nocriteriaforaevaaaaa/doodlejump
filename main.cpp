@@ -32,11 +32,11 @@ int main()
     int x = 100, y = 100, h = 200;
     float dx = 0, dy = 0;
 
-    CircleShape startButton(50); // Define start button with larger radius
-    startButton.setFillColor(Color::Green);
-    startButton.setPosition(175, 225); // Adjust position
+    CircleShape startButton(50); 
+    startButton.setFillColor(Color::Yellow);
+    startButton.setPosition(160, 220); 
 
-    bool gameStarted = false; // Flag to track whether the game has started
+    bool gameStarted = false; 
 
     while (app.isOpen())
     {
@@ -59,7 +59,7 @@ int main()
         }
 
         if (gameStarted)
-        { // Only update and draw game elements if the game has started
+        { 
             if (Keyboard::isKeyPressed(Keyboard::Right))
                 x += 3;
             if (Keyboard::isKeyPressed(Keyboard::Left))
@@ -97,7 +97,7 @@ int main()
             }
         }
         else
-        { // Draw start button if the game has not started yet
+        { 
             app.draw(startButton);
         }
 
